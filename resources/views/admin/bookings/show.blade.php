@@ -77,7 +77,7 @@
                         </tr>
 
                         <tr>
-                            <th>Days</th>
+                            <th>Days Added</th>
                             <td>
                                 {{$days_added}}
                             </td>
