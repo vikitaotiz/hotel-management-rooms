@@ -95,21 +95,15 @@
             </li>
             @endcan
             
-            @can('find_room_access')
+            {{-- @can('find_room_access')
             <li class="{{ $request->segment(2) == 'find_rooms' ? 'active' : '' }}">
                 <a href="{{ route('admin.find_rooms.index') }}">
                     <i class="fa fa-search"></i>
                     <span class="title">@lang('quickadmin.find-room.title')</span>
                 </a>
             </li>
-            @endcan
+            @endcan --}}
             
-
-            
-
-            
-
-
 
             <li class="{{ $request->segment(1) == 'change_password' ? 'active' : '' }}">
                 <a href="{{ route('auth.change_password') }}">
