@@ -45,14 +45,14 @@ class Booking extends Model
      * Set attribute to date format
      * @param $input
      */
-    // public function setTimeFromAttribute($input)
-    // {
-    //     if ($input != null && $input != '') {
-    //         $this->attributes['time_from'] = Carbon::createFromFormat(config('app.date_format') . ' H:i', $input)->format('Y-m-d H:i');
-    //     } else {
-    //         $this->attributes['time_from'] = null;
-    //     }
-    // }
+    public function setTimeFromAttribute($input)
+    {
+        if ($input != null && $input != '') {
+            $this->attributes['time_from'] = Carbon::createFromFormat(config('app.date_format') . ' H:i', $input)->format('Y-m-d H:i');
+        } else {
+            $this->attributes['time_from'] = null;
+        }
+    }
 
     public function getDateFormat()
     {
@@ -70,7 +70,7 @@ class Booking extends Model
         $date2 = Carbon::createFromFormat('Y-m-d', $date2);
 
         $days_added = $date1->diffInDays($date2);
-        
+
         return $days_added;
     }
 
@@ -80,29 +80,29 @@ class Booking extends Model
      *
      * @return string
      */
-    // public function getTimeFromAttribute($input)
-    // {
-    //     $zeroDate = str_replace(['Y', 'm', 'd'], ['0000', '00', '00'], config('app.date_format') . ' H:i:s');
+    public function getTimeFromAttribute($input)
+    {
+        $zeroDate = str_replace(['Y', 'm', 'd'], ['0000', '00', '00'], config('app.date_format') . ' H:i:s');
 
-    //     if ($input != $zeroDate && $input != null) {
-    //         return Carbon::createFromFormat('Y-m-d H:i:s', $input)->format(config('app.date_format') . ' H:i:s');
-    //     } else {
-    //         return '';
-    //     }
-    // }
+        if ($input != $zeroDate && $input != null) {
+            return Carbon::createFromFormat('Y-m-d H:i:s', $input)->format(config('app.date_format') . ' H:i:s');
+        } else {
+            return '';
+        }
+    }
 
     /**
      * Set attribute to date format
      * @param $input
      */
-    // public function setTimeToAttribute($input)
-    // {
-    //     if ($input != null && $input != '') {
-    //         $this->attributes['time_to'] = Carbon::createFromFormat(config('app.date_format') . ' H:i', $input)->format('Y-m-d H:i');
-    //     } else {
-    //         $this->attributes['time_to'] = null;
-    //     }
-    // }
+    public function setTimeToAttribute($input)
+    {
+        if ($input != null && $input != '') {
+            $this->attributes['time_to'] = Carbon::createFromFormat(config('app.date_format') . ' H:i', $input)->format('Y-m-d H:i');
+        } else {
+            $this->attributes['time_to'] = null;
+        }
+    }
 
     /**
      * Get attribute from date format
@@ -110,16 +110,16 @@ class Booking extends Model
      *
      * @return string
      */
-    // public function getTimeToAttribute($input)
-    // {
-    //     $zeroDate = str_replace(['Y', 'm', 'd'], ['0000', '00', '00'], config('app.date_format') . ' H:i');
+    public function getTimeToAttribute($input)
+    {
+        $zeroDate = str_replace(['Y', 'm', 'd'], ['0000', '00', '00'], config('app.date_format') . ' H:i');
 
-    //     if ($input != $zeroDate && $input != null) {
-    //         return Carbon::createFromFormat('Y-m-d H:i:s', $input)->format(config('app.date_format') . ' H:i:s');
-    //     } else {
-    //         return '';
-    //     }
-    // }
+        if ($input != $zeroDate && $input != null) {
+            return Carbon::createFromFormat('Y-m-d H:i:s', $input)->format(config('app.date_format') . ' H:i:s');
+        } else {
+            return '';
+        }
+    }
 
     public function customer()
     {
