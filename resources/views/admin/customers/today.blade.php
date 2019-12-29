@@ -35,7 +35,6 @@
 
                         <th>@lang('quickadmin.customers.fields.first-name')</th>
                         <th>@lang('quickadmin.customers.fields.last-name')</th>
-                        <th>@lang('quickadmin.customers.fields.address')</th>
                         <th>@lang('quickadmin.customers.fields.phone')</th>
                         <th>@lang('quickadmin.customers.fields.email')</th>
                         <th>@lang('quickadmin.customers.fields.country')</th>
@@ -57,7 +56,6 @@
 
                                 <td field-key='first_name'>{{ $customer->first_name }}</td>
                                 <td field-key='last_name'>{{ $customer->last_name }}</td>
-                                <td field-key='address'>{{ $customer->address }}</td>
                                 <td field-key='phone'>{{ $customer->phone }}</td>
                                 <td field-key='email'>{{ $customer->email }}</td>
                                 <td field-key='country'>{{ $customer->country->title or '' }}</td>
