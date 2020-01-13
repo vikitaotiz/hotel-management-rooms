@@ -54,6 +54,10 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
     Route::resource('bookings', 'Admin\BookingsController');
 
     Route::post('bookings_add_days/{id}', 'Admin\BookingsController@add_days')->name('bookings.add_days');
+    
+    Route::post('bookings_checkout/{id}', 'Admin\BookingsController@bookings_checkout')->name('bookings.checkout');
+    
+    Route::post('bookings_change_room/{id}', 'Admin\BookingsController@change_room')->name('bookings.change_room');
 
     Route::get('bookings_today', 'Admin\BookingsController@today')->name('bookings.today');
 

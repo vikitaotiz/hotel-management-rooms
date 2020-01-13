@@ -6,15 +6,30 @@
     <div class="panel panel-default">
         <div class="panel-heading">
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-2">
                     @lang('quickadmin.qa_view')
                 </div>
-                <div class="col-md-4">
-                    <button type="button" class="btn btn-sm btn-warning btn-block" data-toggle="modal" data-target="#addDays">
+                <div class="col-md-2">
+                    <form action="{{route('admin.bookings.checkout', $booking->id)}}" method="POST">
+
+                        {{csrf_field()}}
+
+                        <input type="text" value="Checkout" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">
+                    </form>
+                </div>
+
+                <div class="col-md-2">
+                    <button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#changeRoom">
+                        Change Room
+                    </button>
+                </div>
+
+                <div class="col-md-2">
+                    <button type="button" class="btn btn-sm btn-warning" data-toggle="modal" data-target="#addDays">
                         Add Days
                     </button>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-2">
                     <a href="{{route('admin.bookings.edit', $booking->id)}}" class="btn btn-sm btn-success">Edit Booking</a>
                 </div>
             </div>
@@ -34,6 +49,14 @@
                         <tr>
                             <th>@lang('quickadmin.bookings.fields.room')</th>
                             <td field-key='room'>{{ $booking->room->room_number or '' }}</td>
+                        </tr>
+                        <tr>
+                            <th>Floor</th>
+                            <td field-key='room'>{{ $booking->room->floor or '' }}</td>
+                        </tr>
+                        <tr>
+                            <th>Room Category</th>
+                            <td field-key='room'>{{ $booking->room->category->name or '' }}</td>
                         </tr>
                         <tr>
                             <th>@lang('quickadmin.bookings.fields.time-from')</th>
@@ -111,11 +134,13 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+  
   <script>
       $('.datetime').datetimepicker({
           format: "YYYY-MM-DD HH:mm"
       });
   </script>
+
 @stop
 
 <div class="modal fade" id="addDays" role="dialog">
@@ -156,7 +181,6 @@
                             @endif
                         </div>
 
-                        
                         <div class="col-xs-6 form-group">
                             <label>Select Payment Mode *</label>
                             <select name="add_payment_mode" class="form-control">
@@ -177,6 +201,42 @@
                         <div class="form-group">
                             <input type="submit" value="Add Days" class="btn btn-sm btn-info btn-block">
                         </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="changeRoom" role="dialog">
+    <div class="modal-dialog modal-sm" style="width: 90%;">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header bg-info">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title text-center">
+                    Change Room For {{$booking->customer->first_name}} {{$booking->customer->last_name}}
+                </h4>
+            </div>
+  
+            <div class="modal-body">
+                <form action="{{route('admin.bookings.change_room', $booking->id)}}" method="POST">
+                    {{csrf_field()}}
+                    <div class="form-group">
+                        <label>Select Room Number</label>
+                        <select name="room_id" class="form-control">
+                            @foreach ($rooms as $room)
+                                <option value="{{ $room->id }}"
+                                @if ($room->id == $booking->room_id)
+                                    selected="selected"
+                                @endif
+                                >Room no. : {{ $room->id }} - Floor : {{ $room->id }} - Category : {{$room->category->name}} </option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="submit" class="btn btn-sm btn-block btn-info" value="Change Room">
                     </div>
                 </form>
             </div>

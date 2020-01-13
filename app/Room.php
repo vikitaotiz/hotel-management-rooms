@@ -31,4 +31,9 @@ class Room extends Model
     {
         return $this->HasOne(Booking::class, 'room_id')->withTrashed();
     }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
 }

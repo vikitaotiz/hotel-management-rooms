@@ -40,9 +40,6 @@
             "url": "http://cdn.datatables.net/plug-ins/1.10.16/i18n/English.json"
         }
     });
-
-     
-
 </script>
 @toastr_js
 @toastr_render

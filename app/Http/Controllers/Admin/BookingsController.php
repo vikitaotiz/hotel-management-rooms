@@ -144,6 +144,28 @@ class BookingsController extends Controller
         return redirect()->back();
     }
 
+    public function bookings_checkout($id)
+    {
+        $booking = Booking::findOrFail($id);
+
+        dd($booking);
+
+        toastr()->success('Day(s) changed successfully.');
+
+        return redirect()->back();
+    }
+
+    public function change_room(Request $request, $id)
+    {
+        Booking::whereId($id)->update([
+            'room_id' => $request->room_id
+        ]);
+
+        toastr()->success('Room changed successfully.');
+
+        return redirect()->back();
+    }
+
     /**
      * Update Booking in storage.
      *
@@ -158,8 +180,7 @@ class BookingsController extends Controller
         }
         $booking = Booking::findOrFail($id);
         $booking->update($request->all());
-
-
+        
         return redirect()->route('admin.bookings.index');
     }
 
@@ -186,7 +207,10 @@ class BookingsController extends Controller
 
         $days_added= $date1->diffInDays($date2);
 
-        return view('admin.bookings.show', compact('booking', 'days_added'));
+        $rooms = Room::all();
+
+        return view('admin.bookings.show', 
+        compact('booking', 'days_added', 'rooms'));
     }
 
 
