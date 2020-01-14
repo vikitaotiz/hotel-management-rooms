@@ -14,7 +14,7 @@
 
                         {{csrf_field()}}
 
-                        <input type="text" value="Checkout" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">
+                        <input type="submit" value="Checkout" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">
                     </form>
                 </div>
 
@@ -45,6 +45,10 @@
                                 {{ $booking->customer->first_name or '' }}
                                 {{ $booking->customer->last_name or '' }}
                             </td>
+                        </tr>
+                        <tr>
+                            <th>Number of guests</th>
+                            <td field-key='room'>{{ $booking->people_count or '' }}</td>
                         </tr>
                         <tr>
                             <th>@lang('quickadmin.bookings.fields.room')</th>

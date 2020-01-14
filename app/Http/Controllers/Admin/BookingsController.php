@@ -144,15 +144,19 @@ class BookingsController extends Controller
         return redirect()->back();
     }
 
-    public function bookings_checkout($id)
+    public function bookings_checkout(Request $request, $id)
     {
         $booking = Booking::findOrFail($id);
 
-        dd($booking);
+        Room::whereId($request->room_id)->update([
+            'booked' => false
+        ]);
 
-        toastr()->success('Day(s) changed successfully.');
+        $booking->delete();
 
-        return redirect()->back();
+        toastr()->success('Customer(s) checked out successfully.');
+
+        return redirect()->route('admin.bookings.index');
     }
 
     public function change_room(Request $request, $id)

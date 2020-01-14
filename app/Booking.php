@@ -20,7 +20,7 @@ class Booking extends Model
 {
     use SoftDeletes;
 
-    protected $fillable = ['time_from', 'time_to', 'additional_information', 'account_type', 'payment_mode', 'customer_id', 'room_id','amount'];
+    protected $fillable = ['time_from', 'time_to', 'people_count', 'additional_information', 'account_type', 'payment_mode', 'customer_id', 'room_id','amount'];
 
     /**
      * Set to null if empty

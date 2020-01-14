@@ -24,6 +24,7 @@ class StoreBookingsRequest extends FormRequest
     {
         return [
             'customer_id' => 'required',
+            'people_count' => 'required',
             'account_type' => 'required',
             'payment_mode' => 'required',
             'room_id' => 'required',
