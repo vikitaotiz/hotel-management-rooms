@@ -8,6 +8,7 @@ use App\Charts\customersChart;
 use App\Charts\bookingsChart;
 use App\Booking;
 use App\Customer;
+use App\Room;
 
 class HomeController extends Controller
 {
@@ -28,6 +29,7 @@ class HomeController extends Controller
      */
     public function index()
     {
+        
         // Customers
         $today_customers = Customer::whereDate('created_at', today())->count();
         $yesterday_customers = Customer::whereDate('created_at', today()->subDays(1))->count();
@@ -55,6 +57,9 @@ class HomeController extends Controller
         // $bookings = Booking::whereDate('created_at', today())->get();
         $bookings = Booking::all();
 
-        return view('home', compact('customersChart', 'bookingsChart', 'bookings'));
+        // $rooms = Room::with('booking')->paginate(8);
+        $rooms = Room::with('booking')->get();
+
+        return view('home', compact('customersChart', 'bookingsChart', 'rooms', 'bookings'));
     }
 }

@@ -199,16 +199,16 @@
 
 
             <div class="panel-body table-responsive">
-              <table class="table table-bordered table-striped {{ count($bookings) > 0 ? 'datatable' : '' }} @can('booking_delete') @if ( request('show_deleted') != 1 ) dt-select @endif @endcan">
+              <table id="rooms_table" class="table table-bordered table-striped {{ count($rooms) > 0 ? 'datatable' : '' }} ">
                   <thead>
                       <tr>
   
-                          <th>@lang('quickadmin.bookings.fields.customer')</th>
-                          <th>@lang('quickadmin.bookings.fields.room')</th>
-                          <th>@lang('quickadmin.bookings.fields.time-from')</th>
-                          <th>@lang('quickadmin.bookings.fields.time-to')</th>
+                          <th>Customer</th>
+                          <th>Room</th>
+                          <th>Time From</th>
+                          <th>Time To</th>
                           <th>Account</th>
-                          <th>@lang('quickadmin.bookings.fields.amount')</th>
+                          <th>Amount</th>
                           <th>Mode</th>
                           <th>Days Added</th>
                           <th>Balance</th>
@@ -218,20 +218,20 @@
                   </thead>
                   
                   <tbody>
-                      @if (count($bookings) > 0)
-                          @foreach ($bookings as $booking)
-                              <tr data-entry-id="{{ $booking->id }}">
+                      @if (count($rooms) > 0)
+                          @foreach ($rooms as $room)
+                              <tr data-entry-id="{{ $room->id }}">
 
-                                  <td field-key='customer'>{{ $booking->customer->full_name or '' }}</td>
-                                  <td field-key='room'>{{ $booking->room->room_number or '' }}</td>
-                                  <td field-key='time_from'>{{ $booking->time_from }}</td>
-                                  <td field-key='time_to'>{{ $booking->time_to }}</td>
-                                  <td field-key='amount'>{{ $booking->account_type }}</td>
-                                  <td field-key='amount'>{{ $booking->amount }}</td>
-                                  <td field-key='amount'>{{ $booking->payment_mode }}</td>
+                                  <td field-key='customer'>{{ $room->booking->customer->full_name or 'vacant' }}</td>
+                                  <td field-key='room'>{{ $room->room_number or '' }}</td>
+                                  <td field-key='time_from'>{{ $room->booking['time_from'] or 'vacant' }}</td>
+                                  <td field-key='time_to'>{{ $room->booking['time_to'] or 'vacant'  }}</td>
+                                  <td field-key='amount'>{{ $room->booking['account_type']  or 'vacant' }}</td>
+                                  <td field-key='amount'>{{ $room->booking['amount']  or 'vacant' }}</td>
+                                  <td field-key='amount'>{{ $room->booking['payment_mode']  or 'vacant' }}</td>
                                   <td field-key='amount'>
-                                    @if ($booking->org_time_to)
-                                      {{$booking->days_added()}}
+                                    @if ($room->booking['org_time_to'])
+                                      {{$room->booking->days_added()}}
                                     @else
                                         No Days Added
                                     @endif
@@ -239,7 +239,7 @@
                                   <td field-key='amount'>#</td>
                                   
                                   <td>
-                                    <a href="{{ route('admin.bookings.show',[$booking->id]) }}" class="btn btn-xs btn-primary">@lang('quickadmin.qa_view')</a>
+                                    <a href="{{ route('admin.rooms.show',[$room->id]) }}" class="btn btn-xs btn-primary">@lang('quickadmin.qa_view')</a>
                                   </td>
                                   
                               </tr>
@@ -251,6 +251,7 @@
                       @endif
                   </tbody>
               </table>
+
           </div>
 
           </div>

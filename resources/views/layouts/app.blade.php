@@ -66,6 +66,14 @@
 
 @include('partials.javascripts')
 
+<script>
+  $('#rooms_table').dataTable( {
+    "pageLength": 10,
+    "columnDefs": [
+    { "width": "30%", "targets": 0 }]
+  });
+</script>
+
 <!-- 3. AddChat JS -->
 <!-- Modern browsers -->
 <script type="module" src="<?php echo asset('assets/addchat/js/addchat.min.js') ?>"></script>
